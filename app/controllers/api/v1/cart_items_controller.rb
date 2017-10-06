@@ -1,7 +1,7 @@
 class Api::V1::CartItemsController < Api::V1::ApiController
   before_action :expire_cart
   before_action :set_cart_item, only: [:destroy, :update]
-    
+
   def create
     product = Product.find_by_id(params[:product_id])
     if product

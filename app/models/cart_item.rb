@@ -2,6 +2,9 @@ class CartItem < ActiveRecord::Base
   belongs_to :product
   belongs_to :cart, touch: true
 
+  validates :product_id,
+   presence: true
+
   def initialize(attr={})
     super
     self.quantity = 0

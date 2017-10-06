@@ -1,20 +1,20 @@
 class Api::V1::ApiController < ActionController::Base
-  
+
   before_filter :authenticate_user!
   before_filter :set_cart
-  
+
   private
 
   def authenticate_user!
-    user_token = request.headers['X-USER-TOKEN']
+    user_token = request.headers['HTTP_AUTH_TOKEN']
     if user_token
       @user = User.find_by_auth_token(user_token)
       #Unauthorize if a user object is not returned
       if @user.nil?
-        return unauthorize
+        render json: {message: 'Unauthorized.'}, status: 401
       end
     else
-      return unauthorize
+      render json: {message: 'Auth Token not provided.'}, status: 401
     end
   end
 
