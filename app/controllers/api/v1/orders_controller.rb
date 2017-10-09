@@ -1,5 +1,7 @@
 class Api::V1::OrdersController < Api::V1::ApiController
 
+  before_action :expire_cart, only: [:create]
+  
   def index
     orders = @user.orders
     render json: orders

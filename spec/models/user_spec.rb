@@ -8,16 +8,24 @@ RSpec.describe User, type: :model do
   end
 
   describe 'instance methods' do
-    describe 'cart_items_count' do
+    describe 'generate_authentication_token!' do
       before do
         @user = FactoryGirl.create(:user)
-        cart = FactoryGirl.create(:cart, user: @user)
-        @cart_item = FactoryGirl.create(:cart_item, cart: cart, quantity: 4)
-        @cart_item_2 = FactoryGirl.create(:cart_item, cart: cart, quantity: 6)
       end
 
-      it 'should return total product quantities added in cart' do
-        expect(@user.cart_items_count).to eq(@cart_item.quantity + @cart_item_2.quantity)
+      it 'should set auth token to user' do
+        expect(@user.generate_authentication_token!).not_to eq(nil)
+      end
+    end
+
+    describe 'reset_auth_token!' do
+      before do
+        @user = FactoryGirl.create(:user, auth_token: 'abcdfgeefef')
+      end
+
+      it 'should clear the auth token to for user' do
+        @user.reset_auth_token!
+        expect(@user.auth_token).to eq(nil)
       end
     end
   end

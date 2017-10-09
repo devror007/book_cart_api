@@ -16,7 +16,6 @@ class User < ActiveRecord::Base
   end
 
   def reset_auth_token!
-    self.auth_token = nil
-    self.save
+    self.update_column(:auth_token,  nil)
   end
 end

@@ -8,7 +8,7 @@ RSpec.describe Api::V1::CartItemsController, type: :controller do
 
   describe "Post 'create'" do
     before do
-      @user = FactoryGirl.create(:user)
+      @user = FactoryGirl.create(:user, auth_token: 'abcdefgh')
       @product = FactoryGirl.create(:product)
       @cart = FactoryGirl.create(:cart, user: @user)
       @cart_item = FactoryGirl.create(:cart_item, cart: @cart)
@@ -28,7 +28,7 @@ RSpec.describe Api::V1::CartItemsController, type: :controller do
     end
 
     it 'render cart on success' do
-      set_headers(@user.auth_token)
+      set_headers(@user.reload.auth_token)
       post :create, { id: @cart.id, product_id: @product.id }
       expect(response.status).to eq(200)
     end

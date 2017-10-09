@@ -19,10 +19,12 @@ class CartItem < ActiveRecord::Base
   end
 
   def as_json(options={})
-    super
+    json_data = super
     .slice(*['id', 'quantity'])
     .merge(product_name: self.product.name)
     .merge(price: self.product.price)
     .merge(total_price: self.total_price)
+    json_data.merge(price_alert: "price change from #{self.price} to #{self.product.price}") if price_change?
+    json_data
   end
 end
