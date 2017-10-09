@@ -8,7 +8,7 @@ class Api::V1::SessionsController < Api::V1::ApiController
         if user.generate_authentication_token!
           render json: user.reload.as_json(only: [:email, :auth_token]), status: 200
         else
-          render json: {message: 'Could not set auth toekn'}, status: 422
+          render json: {message: 'Could not set auth token'}, status: 422
         end
       else
         render json: {message: 'User credentails are not valid'}, status: 403
@@ -22,7 +22,7 @@ class Api::V1::SessionsController < Api::V1::ApiController
     if @user.reset_auth_token!
       render json: {message: 'sign out successfully'}, status: 200
     else
-      render json: {message: 'Sorry, could not sign out'}, status: 500
+      render json: {message: 'Sorry, could not sign out'}, status: 422
     end
   end
 end

@@ -20,7 +20,7 @@ RSpec.describe Api::V1::SessionsController, type: :controller do
       user = FactoryGirl.create(:user, auth_token: nil)
       allow_any_instance_of(User).to receive(:generate_authentication_token!).and_return(nil)
       post :create, {email: user.email, password: user.password }
-      expect(json).to eq({"message"=>"Could not set auth toekn"})
+      expect(json).to eq({"message"=>"Could not set auth token"})
     end
 
     it 'success' do

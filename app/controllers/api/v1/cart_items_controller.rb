@@ -22,7 +22,7 @@ class Api::V1::CartItemsController < Api::V1::ApiController
       if @cart_item.save
         render json: @cart, status: 200
       else
-        render json: {current_cart: @cart, message: 'sorry, could not update to cart item quantity', errors: @cart_item.errors}, status: 422
+        render json: {current_cart: @cart, message: 'sorry, could not update cart item quantity', errors: @cart_item.errors}, status: 422
       end
     else
       render json: {current_cart: @cart, message: 'Cart item not found'}, status: 404
