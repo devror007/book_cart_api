@@ -11,7 +11,7 @@ class Order < ActiveRecord::Base
     .merge(total_amount: self.total_price)
   end
 
-  def confirm
+  def confirm!
     self.user.cart_items.each do |cart_item|
       order_item = self.order_items.build(quantity: cart_item.quantity, price: cart_item.product.price, product_id: cart_item.product_id)
     end

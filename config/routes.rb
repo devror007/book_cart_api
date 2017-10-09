@@ -58,7 +58,7 @@ Rails.application.routes.draw do
       resources :cart_items, only: [:create, :update, :destroy]
       resources :carts, only: [:show] do
         collection do
-          get 'cart_summary'
+          get 'summary'
         end
       end
       resources :orders, only: [:index, :create]

@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   has_many :orders, dependent: :destroy
   has_many :cart_items, through: :cart
   has_one :cart, dependent: :destroy
-  
+
   def generate_authentication_token!
     begin
       self.auth_token = Devise.friendly_token

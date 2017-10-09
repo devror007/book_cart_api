@@ -11,10 +11,10 @@ class Api::V1::ApiController < ActionController::Base
       @user = User.find_by_auth_token(user_token)
       #Unauthorize if a user object is not returned
       if @user.nil?
-        render json: {message: 'Unauthorized.'}, status: 401
+        render json: { message: 'Unauthorized.' }, status: 401
       end
     else
-      render json: {message: 'Auth Token not provided.'}, status: 401
+      render json: { message: 'Auth Token not provided.' }, status: 401
     end
   end
 
@@ -30,5 +30,4 @@ class Api::V1::ApiController < ActionController::Base
   def expire_cart
     @cart.destroy if @cart && @cart.is_expired?
   end
-
 end

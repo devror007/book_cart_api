@@ -33,7 +33,7 @@ RSpec.describe Api::V1::CartsController, type: :controller do
     end
   end
 
-  describe "GET 'cart_summary'" do
+  describe "GET 'summary'" do
     before do
       @user = FactoryGirl.create(:user, auth_token: 'abcdefgh')
       @product = FactoryGirl.create(:product)
@@ -42,21 +42,21 @@ RSpec.describe Api::V1::CartsController, type: :controller do
     end
 
     it 'should fail auth when auth token is not present' do
-      get :cart_summary
+      get :summary
       expect(json).to eq({"message"=>"Auth Token not provided."})
       expect(response.status).to eq(401)
     end
 
     it 'should not auth when auth token is invalid' do
       set_headers('xyz')
-      get :cart_summary
+      get :summary
       expect(json).to eq({"message"=>"Unauthorized."})
       expect(response.status).to eq(401)
     end
 
     it 'render cart summary on success' do
       set_headers(@user.reload.auth_token)
-      get :cart_summary
+      get :summary
       expect(response.status).to eq(200)
       expect(JSON.parse(response.body)).to eq ([{"product_name"=> @product.name, "quantity"=>1, "total_price"=>100}])
     end
